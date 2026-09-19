@@ -26,7 +26,7 @@ from datetime import datetime
 # ---------------------------------------------------------------------------
 SAMPLE_ADMIN_EMAIL = "admin@sparkleclean.ph"
 SAMPLE_ADMIN_PASSWORD = "admin123"
-SAMPLE_CUSTOMER_EMAIL = "customer@sparkleclean.ph"
+SAMPLE_CUSTOMER_EMAIL = "customer@gmail.com"
 SAMPLE_CUSTOMER_PASSWORD = "customer123"
 
 PASSWORD_MIN_LENGTH = 6
