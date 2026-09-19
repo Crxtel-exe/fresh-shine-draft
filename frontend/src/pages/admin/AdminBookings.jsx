@@ -61,7 +61,7 @@ export default function AdminBookings() {
         <h1 className="section-title">All Bookings</h1>
         <p className="section-sub">Manage booking status and payment status</p>
 
-        {msg && <div className="alert alert-error">{msg}</div>}
+        
 
         {bookings.length === 0 ? (
           <div className="card empty">No bookings yet.</div>

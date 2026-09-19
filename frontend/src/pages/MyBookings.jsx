@@ -9,9 +9,6 @@ export default function MyBookings() {
   const [bookings, setBookings] = useState([])
   const { data: site } = useGet('/site')
   const [loading, setLoading] = useState(true)
-  const [paying, setPaying] = useState(null)
-  const [dpAmount, setDpAmount] = useState('')
-  const [msg, setMsg] = useState('')
   // Which booking's "Contact Admin" pop-up is open (null = none).
   const [contactOpen, setContactOpen] = useState(false)
 
@@ -22,26 +19,6 @@ export default function MyBookings() {
 
   useEffect(load, [])
 
-  const payDownpayment = async (id) => {
-    setMsg('')
-    try {
-      await api.post(`/bookings/${id}/downpayment`, { amount: Number(dpAmount) })
-      setDpAmount('')
-      load()
-    } catch (err) {
-      setMsg(err.response?.data?.error || 'Payment failed.')
-    }
-  }
-
-  const payFull = async (id) => {
-    setMsg('')
-    try {
-      await api.post(`/bookings/${id}/payfull`)
-      load()
-    } catch (err) {
-      setMsg(err.response?.data?.error || 'Payment failed.')
-    }
-  }
 
   // A booking can hold several services; fall back to the single name.
   const serviceLabel = (b) =>
@@ -53,9 +30,9 @@ export default function MyBookings() {
     <div className="page">
       <div className="container">
         <h1 className="section-title">My Bookings</h1>
-        <p className="section-sub">Track your bookings, pay, and contact the company</p>
+        <p className="section-sub">Track your bookings and contact the company</p>
 
-        {msg && <div className="alert alert-error">{msg}</div>}
+        
 
         {bookings.length === 0 ? (
           <div className="card empty">
@@ -102,25 +79,6 @@ export default function MyBookings() {
                 {b.downpayment > 0 && <p className="mt-1">Downpayment paid: ₱{Number(b.downpayment).toLocaleString()}</p>}
 
                 <div className="flex wrap mt-2" style={{ gap: 10 }}>
-                  {b.payment_status !== 'paid' && (
-                    <>
-                      <input
-                        type="number"
-                        min="1"
-                        placeholder="Downpayment amount"
-                        value={paying === b.id ? dpAmount : ''}
-                        onChange={(e) => { setPaying(b.id); setDpAmount(e.target.value) }}
-                        style={{ width: 180 }}
-                      />
-                      <button className="btn btn-secondary btn-sm" onClick={() => payDownpayment(b.id)}>
-                        Pay Downpayment
-                      </button>
-                      <button className="btn btn-primary btn-sm" onClick={() => payFull(b.id)}>
-                        Pay in Full
-                      </button>
-                    </>
-                  )}
-                  {/* Shows the company's phone, email and Facebook only. */}
                   <button
                     className="btn btn-outline btn-sm"
                     onClick={() => setContactOpen(true)}
