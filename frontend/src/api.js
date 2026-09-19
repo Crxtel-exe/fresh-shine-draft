@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'https://fresh-shine-draft-production.up.railway.app/api',
 })
 
 // Attach JWT token to every request
